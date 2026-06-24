@@ -9,16 +9,24 @@ export default class PokemonForm extends Component{
         pokemon: '',
     }
 
+    handleNameChange = event =>{
+    this.setState({ pokemon: event.currentTarget.value.toLowerCase()});
+    }
+
     handleSubmit = event => {
+        event.preventDefault();
+
         if(this.state.pokemon.trim() === ''){
-            return toast.error('Введите имя покемона!')
+            alert('Введите имя покемона')
+            toast.error('Введите имя покемона!');
+            return;
         }
 
         console.log(this.state.pokemon);
         
 
-        this.props.onSubmit(this.state.pokemonName);
-        this.setState({ pokemonName: ''})
+        this.props.onSubmit(this.state.pokemon);
+        this.setState({ pokemon: ''})
     };
 
     render(){
@@ -26,8 +34,8 @@ export default class PokemonForm extends Component{
             <form onSubmit={this.handleSubmit} style={styles.form}>
                 <input
                 type="text"
-                name="pokemonName"
-                value={this.state.pokemonName}
+                name="pokemon"
+                value={this.state.pokemon}
                 onChange={this.handleNameChange}
                 />
                 <button type="submit">
