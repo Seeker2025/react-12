@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PokemonErrorView from './PokemonErrorView';
 
 export default class PokemonInfo extends Component{
     componentDidUpdate(prevProps, prevState){
