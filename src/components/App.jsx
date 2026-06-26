@@ -44,6 +44,8 @@ export default class App extends Component{
     
 
     <div style={{ maxWidth: 1170, margin: '0 auto', padding: 20}}>
+      <p>Pikachu</p>
+      <p>Ditto</p>
       <PokemonForm onSubmit={this.handleFormSubmit}/>  
       <PokemonInfo pokemonName={this.state.pokemonName}/>
       <ToastContainer autoClose={3000}/>
