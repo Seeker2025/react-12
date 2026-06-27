@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import PokemonErrorView from './PokemonErrorView';
+import PokemonDataView from './PokemonDataView';
+import PokemonPendingView from './PakemonPendingView'
 
 export default class PokemonInfo extends Component{
     state ={
@@ -17,6 +19,7 @@ export default class PokemonInfo extends Component{
         console.log('Изменилось имя покемона');
         console.log('prevProps.pokemonName', prevProps.pokemonName);
         console.log('this.props.pokemonName', this.props.pokemonName);
+setTimeout(()=>{
 
     fetch(`https://pokeapi.co/api/v2/pokemon/${nextName}`)
         .then(response => {
@@ -29,6 +32,10 @@ export default class PokemonInfo extends Component{
         })
         .then(pokemon => this.setState({ pokemon, status: 'resolved' }))
         .catch(error => this.setState({ error, status: 'rejected' }))
+
+    
+}, 1000);
+    
         
     } 
     }
@@ -38,14 +45,14 @@ export default class PokemonInfo extends Component{
     render(){
 
         const { pokemon, error, status } = this.state;
-        // const { pokemonName } = this.props;
+        const { pokemonName } = this.props;
 
         if(status === 'idle'){
             return <div>Введите имя покемона.</div>
         }
 
         if(status === 'pending'){
-            return <div>Загружаем...</div>
+            return <PokemonPendingView pokemonName = { pokemonName }/>
         }
 
         if(status === 'rejected'){
@@ -53,19 +60,20 @@ export default class PokemonInfo extends Component{
         }
 
         if(status === 'resolved'){
-            return (
-                <div>
-                    <h3>{pokemon.name}</h3>
+            return <PokemonDataView pokemon ={pokemon}/>
+    //        (
+    //             <div>
+    //                 <h3>{pokemon.name}</h3>
 
-    <img
-        src = {pokemon.sprites.other['official-artwork'].front_default}
-        alt = {pokemon.name}
-        with = "240"
-    />
+    // <img
+    //     src = {pokemon.sprites.other['official-artwork'].front_default}
+    //     alt = {pokemon.name}
+    //     with = "240"
+    // />
 
 
-                </div>
-            )
+    //             </div>
+    //        )
         }
         
 
